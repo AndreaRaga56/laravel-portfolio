@@ -17,4 +17,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')
+    ->prefix('admin')
+    ->group(function () {
+        Route::get("/", function () {
+            return "Sei loggato come Admin";
+        });
+        Route::get("/profile", function () {
+            return "Sei nel tuo profilo di Admin";
+        });
+    });
+
+require __DIR__ . '/auth.php';
