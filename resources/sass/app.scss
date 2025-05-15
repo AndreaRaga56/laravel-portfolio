@@ -6,3 +6,29 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+p{
+    margin: 0;
+}
+
+.my-card{
+    margin: 1rem;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: antiquewhite;
+    border-radius: 1.25rem;
+}
+
+.my-card h4{
+    font-weight: 900;
+}
+
+h1{
+    margin: 1rem;
+}
