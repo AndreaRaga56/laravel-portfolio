@@ -7,17 +7,17 @@
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-p{
+p {
     margin: 0;
 }
 
-.my-card{
+.my-card {
     margin: 1rem;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -25,10 +25,25 @@ p{
     border-radius: 1.25rem;
 }
 
-.my-card h4{
+.my-card h4 {
     font-weight: 900;
+    color: black;
+    text-shadow: 2px 2px 6px rgba(194, 129, 0, 0.662);
 }
 
-h1{
+.my-card a {
+    text-decoration: none;
+}
+
+.index-title {
     margin: 1rem;
+}
+
+.show-card{
+    margin-top: 3rem;
+    padding: 20px;
+    padding-top: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: antiquewhite;
+    border-radius: 1.25rem;
 }

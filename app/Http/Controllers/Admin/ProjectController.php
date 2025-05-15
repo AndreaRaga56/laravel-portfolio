@@ -36,9 +36,10 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        return "Sei nella show ".$id;
+
+        return view('Partials.admin-project-Show', compact('project'));
     }
 
     /**
