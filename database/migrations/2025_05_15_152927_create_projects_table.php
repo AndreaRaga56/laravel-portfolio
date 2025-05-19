@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('client');
-            $table->string('period');
-            $table->text('summary');
+            $table->string('title', 255);
+            $table->string('client', 255);
+            $table->tinyInteger('period');
+            $table->string('summary');
             $table->timestamps();
         });
     }

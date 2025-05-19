@@ -13,7 +13,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects=Project::all();
+        $projects = Project::all();
         return view('Partials.admin-project-Index', compact('projects'));
     }
 
@@ -30,7 +30,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'client' => 'required|string|max:255',
+            'period' => 'required|integer|min:0|max:255',
+            'summary' => 'required|string',
+        ]);
+
+        $newProject = new Project;
+        $newProject->fill($validated);
+        $newProject->save();
+
+        return redirect()->route('projects.show', $newProject);
     }
 
     /**
@@ -65,4 +76,3 @@ class ProjectController extends Controller
         //
     }
 }
-
