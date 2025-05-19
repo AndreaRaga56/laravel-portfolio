@@ -55,17 +55,41 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        //
+        return view('Partials.admin-project-Edit', compact('project'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Project $project)
     {
-        //
+
+        if ($request->isMethod("PUT")) {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'client' => 'required|string|max:255',
+                'period' => 'required|integer|min:0|max:255',
+                'summary' => 'required|string',
+            ]);
+        } elseif($request->isMethod("PATCH")) {
+            $validated = $request->validate([
+                'title' => 'sometimes|string|max:255',
+                'client' => 'sometimes|string|max:255',
+                'period' => 'sometimes|integer|min:0|max:255',
+                'summary' => 'sometimes|string',
+            ]);
+        }else{
+            abort (405, 'Metodo Non consentito');
+        }
+
+        // foreach ($validated as $key => $value) {
+        //     $project->$key = $value;
+        // }
+        $project->update($validated);
+
+        return redirect()->route('projects.show', $project);
     }
 
     /**
