@@ -22,7 +22,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('Partials.admin-project-Create');
     }
 
     /**
@@ -38,7 +38,6 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-
         return view('Partials.admin-project-Show', compact('project'));
     }
 
