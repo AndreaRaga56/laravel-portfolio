@@ -20,7 +20,7 @@
             </div>
             <div class="mb-3">
                 <label for="period" class="form-label">Tempo impiegato (in settimane)</label>
-                <input type="text" class="form-control" id="period" name="period" required
+                <input type="number" class="form-control" id="period" name="period" required
                     value="{{ $project->period }}">
             </div>
             <div class="mb-3">

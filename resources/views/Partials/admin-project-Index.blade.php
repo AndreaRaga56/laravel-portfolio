@@ -7,6 +7,7 @@
 @section('contenuto1')
     <div class="mt-4 container">
         <h1 class="index-title">Tutti i progetti</h1>
+        <a href="{{ route('projects.create') }}" class="btn btn-secondary mb-2 mt-4 ms-3">Crea nuovo progetto</a>
         <div class="mt-3 row row-cols-3 mb-5">
             @foreach ($projects as $project)
                 <div class="col">
