@@ -7,7 +7,8 @@
 @section('contenuto1')
     <div class="mt-4 container">
         <h1 class="index-title">Modifica Progetto Codice: {{ $project->id }}</h1>
-        <form class="mt-3 new-proj-form mb-5" action="{{ route('projects.update', $project) }}" method="POST"> @csrf @method('PUT')
+        <form class="mt-3 new-proj-form mb-5" action="{{ route('projects.update', $project) }}" method="POST"> @csrf
+            @method('PUT')
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
                 <input type="text" class="form-control" id="title" name="title" required
@@ -17,6 +18,15 @@
                 <label for="client" class="form-label">Cliente</label>
                 <input type="text" class="form-control" id="client" name="client" required
                     value="{{ $project->client }}">
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Tipo</label>
+                <select class="form-select" id="type" name="type" required>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}" {{ $project->type->id == $type->id ? 'selected' : '' }}>
+                            {{ $type->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="mb-3">
                 <label for="period" class="form-label">Tempo impiegato (in settimane)</label>
