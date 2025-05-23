@@ -14,6 +14,7 @@
                     <div class="my-card">
                         <a href="{{ route("projects.show", $project->id) }}"><h4 class="mb-3">{{ $project->title }}</h4></a>
                         <p class="mb-2"><strong>Cliente: </strong>{{ $project->client }}</p>
+                        <p class="mb-2"><strong>Tipologia: </strong>{{ $project->type->name }}</p>
                         <p class="mb-2"><strong>Tempo di svluppo: </strong>{{ $project->period }} settimane</p>
                         <p><strong>Descrizione del progetto:</strong></p>
                         <p>{{ $project->summary }}</p>

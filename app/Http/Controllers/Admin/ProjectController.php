@@ -14,6 +14,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
+        // @dd($projects[1]->type);
+        // @dd($projects[1]->type->name);
         return view('Partials.admin-project-Index', compact('projects'));
     }
 

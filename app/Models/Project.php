@@ -8,7 +8,7 @@ class Project extends Model
 {
     public function type()
     {
-        return $this->hasOne(Type::class);
+        return $this->belongsTo(Type::class);
     }
 
     protected $fillable = [
