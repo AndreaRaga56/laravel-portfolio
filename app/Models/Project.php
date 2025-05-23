@@ -15,6 +15,7 @@ class Project extends Model
         'title',
         'client',
         'period',
-        'summary'
+        'summary',
+        'type_id'
     ];
 }

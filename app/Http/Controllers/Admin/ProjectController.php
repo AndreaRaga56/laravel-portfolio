@@ -25,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('Partials.admin-project-Create');
+        $types= Type::all();
+        return view('Partials.admin-project-Create', compact('types'));
     }
 
     /**
@@ -38,6 +39,7 @@ class ProjectController extends Controller
             'client' => 'required|string|max:255',
             'period' => 'required|integer|min:0|max:255',
             'summary' => 'required|string',
+            'type_id' => 'required|integer|between:1,7'
         ]);
 
         $newProject = new Project;
@@ -70,12 +72,14 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
 
+
         if ($request->isMethod("PUT")) {
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
                 'client' => 'required|string|max:255',
                 'period' => 'required|integer|min:0|max:255',
                 'summary' => 'required|string',
+                'type_id' => 'required|integer|between:1,7'
             ]);
         } elseif($request->isMethod("PATCH")) {
             $validated = $request->validate([
@@ -83,6 +87,7 @@ class ProjectController extends Controller
                 'client' => 'sometimes|string|max:255',
                 'period' => 'sometimes|integer|min:0|max:255',
                 'summary' => 'sometimes|string',
+                'type_id' => 'sometimes|integer|between:1,7'
             ]);
         }else{
             abort (405, 'Metodo Non consentito');

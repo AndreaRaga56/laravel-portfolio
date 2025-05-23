@@ -20,8 +20,8 @@
                     value="{{ $project->client }}">
             </div>
             <div class="mb-3">
-                <label for="type" class="form-label">Tipo</label>
-                <select class="form-select" id="type" name="type" required>
+                <label for="type_id" class="form-label">Tipologia</label>
+                <select class="form-select" id="type_id" name="type_id" required>
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}" {{ $project->type->id == $type->id ? 'selected' : '' }}>
                             {{ $type->name }}</option>

@@ -17,6 +17,16 @@
                 <input type="text" class="form-control" id="client" name="client" required>
             </div>
             <div class="mb-3">
+                <label for="type_id" class="form-label">Tipologia</label>
+                <select class="form-select" id="type_id" name="type_id" required>
+                    <option value="" disabled selected>Seleziona una tipologia</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}">
+                            {{ $type->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="period" class="form-label">Tempo impiegato (in settimane)</label>
                 <input type="number" class="form-control" id="period" name="period" required>
             </div>
