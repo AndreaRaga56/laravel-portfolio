@@ -42,6 +42,8 @@ class ProjectController extends Controller
             'type_id' => 'required|integer|between:1,7'
         ]);
 
+        $data=$request->all();
+
         $newProject = new Project;
         $newProject->fill($validated);
         $newProject->save();
