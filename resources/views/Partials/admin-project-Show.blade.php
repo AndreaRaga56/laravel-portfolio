@@ -12,6 +12,14 @@
                 <h4 class="mb-3"><strong>Codice Progetto: </strong>{{ $project->id }}</h4>
                 <p class="mb-3"><strong>Cliente: </strong>{{ $project->client }}</p>
                 <p class="mb-3"><strong>Tipologia: </strong>{{ $project->type->name }}</p>
+                @if (count($project->technologies) > 0)
+                    <p class="mb-3"><strong>Tecnologia: </strong>
+                        @foreach ($project->technologies as $technology)
+                            <span class="badge"
+                                style="background-color: {{ $technology->color }}">{{ $technology->name }}</span>
+                        @endforeach
+                    </p>
+                @endif
                 <p class="mb-3"><strong>Tempo di svluppo: </strong>{{ $project->period }} settimane</p>
                 <p><strong>Descrizione del progetto:</strong></p>
                 <p>{{ $project->summary }}</p>

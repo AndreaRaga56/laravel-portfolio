@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $types= Type::all();
-        return view('Partials.admin-project-Create', compact('types'));
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('Partials.admin-project-Create', compact(['types', 'technologies']));
     }
 
     /**
@@ -42,11 +44,15 @@ class ProjectController extends Controller
             'type_id' => 'required|integer|between:1,7'
         ]);
 
-        $data=$request->all();
+        $data = $request->all();
 
         $newProject = new Project;
         $newProject->fill($validated);
         $newProject->save();
+
+        if ($request->has('technologies')) {
+            $newProject->technologies()->attach($data['technologies']);
+        }
 
         return redirect()->route('projects.show', $newProject);
     }
@@ -64,8 +70,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        $types= Type::all();
-        return view('Partials.admin-project-Edit', compact(['project', 'types']));
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('Partials.admin-project-Edit', compact(['project', 'types', 'technologies']));
     }
 
     /**
@@ -73,7 +80,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-
+        $data = $request->all();
 
         if ($request->isMethod("PUT")) {
             $validated = $request->validate([
@@ -83,7 +90,7 @@ class ProjectController extends Controller
                 'summary' => 'required|string',
                 'type_id' => 'required|integer|between:1,7'
             ]);
-        } elseif($request->isMethod("PATCH")) {
+        } elseif ($request->isMethod("PATCH")) {
             $validated = $request->validate([
                 'title' => 'sometimes|string|max:255',
                 'client' => 'sometimes|string|max:255',
@@ -91,14 +98,20 @@ class ProjectController extends Controller
                 'summary' => 'sometimes|string',
                 'type_id' => 'sometimes|integer|between:1,7'
             ]);
-        }else{
-            abort (405, 'Metodo Non consentito');
+        } else {
+            abort(405, 'Metodo Non consentito');
         }
 
         // foreach ($validated as $key => $value) {
         //     $project->$key = $value;
         // }
         $project->update($validated);
+
+        if ($request->has('technologies')) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
 
         return redirect()->route('projects.show', $project);
     }
@@ -108,6 +121,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->detach();
         $project->delete();
 
         return redirect()->route('projects.index');
