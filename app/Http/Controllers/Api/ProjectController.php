@@ -13,7 +13,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return 'Sei nella index';
+        $projects=Project::with('technologies', 'type')->get();
+        return response()->json([
+            'success'=> true,
+            'data' => $projects
+        ]);
     }
 
         /**
@@ -21,7 +25,10 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        // return view('Partials.admin-project-Show', compact('project'));
-        return 'Sei nella show numero ' . $project->id;
+        $project->load('technologies', 'type');
+        return response()->json([
+            'success'=> true,
+            'data' => $project
+        ]);
     }
 }
