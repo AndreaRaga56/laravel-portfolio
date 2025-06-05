@@ -59,3 +59,14 @@ nav .container div{
     background-color: antiquewhite;
     border-radius: 1.25rem;
 }
+
+.show-project-img{
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+}

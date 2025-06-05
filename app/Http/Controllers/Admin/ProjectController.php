@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -46,6 +47,12 @@ class ProjectController extends Controller
 
         $data = $request->all();
 
+        $validated['image'] = null;
+        if ($request->image) {
+            $path = Storage::putFile('projects', $data['image']);
+            $validated['image'] = $path;
+        }
+
         $newProject = new Project;
         $newProject->fill($validated);
         $newProject->save();
@@ -82,6 +89,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
 
+
         if ($request->isMethod("PUT")) {
             $validated = $request->validate([
                 'title' => 'required|string|max:255',
@@ -100,6 +108,35 @@ class ProjectController extends Controller
             ]);
         } else {
             abort(405, 'Metodo Non consentito');
+        }
+
+        if ($request->image) {
+            $path = Storage::putFile('projects', $data['image']);
+        }
+
+
+
+        if (array_key_exists("image_action", $data)) {
+            if ($data['image_action'] != 'Mantieni') {
+                if ($data['image_action'] == 'Elimina') {
+                    Storage::delete($project->image);
+                    $validated['image'] = null;
+                } elseif ($data['image_action'] == 'Aggiorna') {
+                    if ($request->image) {
+                        Storage::delete($project->image);
+                        $path = Storage::putFile('projects', $data['image']);
+                        $validated['image'] = $path;
+                    } else {
+                        return redirect()->route('projects.edit', $project);
+                    }
+                }
+            }
+        } else {
+            $validated['image'] = null;
+            if (array_key_exists("image", $data)) {
+                $path = Storage::putFile('projects', $data['image']);
+                $validated['image'] = $path;
+            }
         }
 
         // foreach ($validated as $key => $value) {
@@ -121,6 +158,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
         $project->technologies()->detach();
         $project->delete();
 

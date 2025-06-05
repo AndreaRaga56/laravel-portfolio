@@ -8,29 +8,40 @@
     <div class="mt-4 container">
         <div class="show-card">
             <h1> <strong>Progetto: {{ $project->title }} </strong></h1>
-            <div class="mt-4">
-                <h4 class="mb-3"><strong>Codice Progetto: </strong>{{ $project->id }}</h4>
-                <p class="mb-3"><strong>Cliente: </strong>{{ $project->client }}</p>
-                <p class="mb-3"><strong>Tipologia: </strong>{{ $project->type->name }}</p>
-                @if (count($project->technologies) > 0)
-                    <p class="mb-3"><strong>Tecnologia: </strong>
-                        @foreach ($project->technologies as $technology)
-                            <span class="badge"
-                                style="background-color: {{ $technology->color }}">{{ $technology->name }}</span>
-                        @endforeach
-                    </p>
-                @endif
-                <p class="mb-3"><strong>Tempo di svluppo: </strong>{{ $project->period }} settimane</p>
-                <p><strong>Descrizione del progetto:</strong></p>
-                <p>{{ $project->summary }}</p>
+            <div class="row row-col">
+                <div class="col-4 mt-4">
+                    <h4 class="mb-3"><strong>Codice Progetto: </strong>{{ $project->id }}</h4>
+                    <p class="mb-3"><strong>Cliente: </strong>{{ $project->client }}</p>
+                    <p class="mb-3"><strong>Tipologia: </strong>{{ $project->type->name }}</p>
+                    @if (count($project->technologies) > 0)
+                        <p class="mb-3"><strong>Tecnologia: </strong>
+                            @foreach ($project->technologies as $technology)
+                                <span class="badge"
+                                    style="background-color: {{ $technology->color }}">{{ $technology->name }}</span>
+                            @endforeach
+                        </p>
+                    @endif
+                    <p class="mb-3"><strong>Tempo di svluppo: </strong>{{ $project->period }} settimane</p>
+                    <p><strong>Descrizione del progetto:</strong></p>
+                    <p>{{ $project->summary }}</p>
 
-                <div class="d-flex gap-2 mt-3">
-                    <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning">Modifica</a>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop">Elimina</button>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="{{ route('projects.edit', $project->id) }}" class="btn btn-warning">Modifica</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">Elimina</button>
+                    </div>
+                    <p class="mt-3"><a href="{{ route('projects.index') }}">Torna ai Progetti</a></p>
                 </div>
-                <p class="mt-3"><a href="{{ route('projects.index') }}">Torna ai Progetti</a></p>
+                @if ($project->image)
+                    <div class="col-8 mt-4">
+                        <div>
+                            <img class='show-project-img' src="{{ asset('storage/' . $project->image) }}"
+                                alt="Immagine progetto">
+                        </div>
+                    </div>
+                @endif
             </div>
+
         </div>
     </div>
 

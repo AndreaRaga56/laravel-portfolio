@@ -7,7 +7,7 @@
 @section('contenuto1')
     <div class="mt-4 container">
         <h1 class="index-title">Crea Nuovo Progetto</h1>
-        <form class="mt-3 new-proj-form mb-5" action="{{ route('projects.store') }}" method="POST"> @csrf
+        <form class="mt-3 new-proj-form mb-5" action="{{ route('projects.store') }}" method="POST" enctype="multipart/form-data"> @csrf
             <div class="mb-3">
                 <label for="title" class="form-label">Titolo</label>
                 <input type="text" class="form-control" id="title" name="title" required>
@@ -27,12 +27,18 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="image" class="form-label">Immagine</label>
+                <input type="file" class="form-control" id="image" name="image">
+            </div>
+            <div class="mb-3">
                 <label class="form-label">Tecnologie</label>
                 <div>
                     @foreach ($technologies as $technology)
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="technology_{{ $technology->id }}" name="technologies[]" value="{{ $technology->id }}">
-                            <label class="form-check-label" for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
+                            <input class="form-check-input" type="checkbox" id="technology_{{ $technology->id }}"
+                                name="technologies[]" value="{{ $technology->id }}">
+                            <label class="form-check-label"
+                                for="technology_{{ $technology->id }}">{{ $technology->name }}</label>
                         </div>
                     @endforeach
                 </div>
